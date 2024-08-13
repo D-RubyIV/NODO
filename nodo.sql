@@ -31,6 +31,38 @@ CREATE TABLE Countrys(
   primary key(id)
 );
 
+-- CREATE TABLE ONE TO ONE
+CREATE TABLE users_one (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50)
+);
+CREATE TABLE user_profiles_one (
+    profile_id INT PRIMARY KEY,
+    user_id INT UNIQUE,
+    profile_data VARCHAR(255),
+    FOREIGN KEY (user_id)
+        REFERENCES users (user_id)
+);
+
+-- CREATE MANY TO MANY
+CREATE TABLE USER(
+ ID INT auto_increment,
+ USERNAME TEXT,
+  primary keY (ID)
+);
+CREATE TABLE ROLE (
+    ID INT auto_increment,
+    NAME TEXT,
+    primary key (ID)
+);
+CREATE TABLE USER_ROLE(
+    ID_USER INT,
+    ID_ROLE int,
+    primary key(ID_USER, ID_ROLE),
+    foreign key (ID_USER) references USER(ID),
+    foreign key (ID_ROLE) references ROLE(ID)
+);
+
 
 -- CREATE TABLE 
 CREATE TABLE Persons(
@@ -63,11 +95,9 @@ insert into persons (fullName, age, country_id) values("Nam", 19, 2), ("Quân", 
 -- Insert vào một bảng sử dụng thông tin từ bảng khác
 -- + cần chỉ định cụ thể các trường
 
--- INSERT INTO PersonClones (fullName, age) SELECT fullName, age FROM persons;
+INSERT INTO Perssssư (fullName, age) SELECT fullName, age FROM persons;
 -- + toàn bộ các trường
 INSERT INTO PersonClones SELECT * FROM Persons;
-
-
 
 -- SELECT 
 -- + SELECT LIMIT 
@@ -81,7 +111,10 @@ SELECT * FROM persons LIMIT 3 offset 2;
 select * from persons where id = 1;
 
 -- SELECT INTO
--- SELECT (fullName, age) INTO PersonClones FROM person; 
+SELECT fullName INTO @Perssss FROM persons limit 1; 
+select @Perssss;
+
+CREATE TABLE Perssssư  AS SELECT * FROM persons;
 
 -- SELECT MAX
 SELECT max(age) from persons;  
@@ -161,3 +194,55 @@ SELECT * FROM nodo.countrys;
 -- DELETE ĐƠN
 DELETE FROM nodo.persons WHERE nodo.persons.id = 1;
 DELETE FROM nodo.persons WHERE nodo.persons.age = 20 AND nodo.persons.fullName = "abc"; 
+
+-- STORE PRODUCE
+delimiter $$
+CREATE PROCEDURE `new_procedure` ()
+BEGIN
+SELECT *  FROM nodo.persons;
+END
+$$ delimiter 
+call new_procedure;
+
+delimiter $$
+CREATE procedure `test_2` (IN age INT, IN fullName TEXT)
+begin
+SELECT *  FROM nodo.persons P where P.age = age AND P.fullName = fullName;
+end
+$$ delimiter ;
+SELECT * FROM nodo.persons;
+call TEST_2(19, "Nam")
+
+-- FUNCTION 
+DELIMITER $$
+CREATE FUNCTION CustomerLevel(
+	credit DECIMAL(10,2)
+) 
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE customerLevel VARCHAR(20);
+
+    IF credit > 50000 THEN
+		SET customerLevel = 'PLATINUM';
+    ELSEIF (credit <= 50000 AND 
+			credit >= 10000) THEN
+        SET customerLevel = 'GOLD';
+    ELSEIF credit < 10000 THEN
+        SET customerLevel = 'SILVER';
+    END IF;
+	-- return the customer level
+	RETURN (customerLevel);
+END$$
+DELIMITER ;
+
+
+select customerLevel(30000) into @aaa;
+SELECT @aaa;
+
+select customerLevel(131) as aaa;
+
+
+
+
+
