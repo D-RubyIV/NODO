@@ -9,6 +9,6 @@ public class FooFormatter implements Formatter {
 
     @Override
     public String format() {
-        return "foo";
+        return "BEAN FOO";
     }
 }

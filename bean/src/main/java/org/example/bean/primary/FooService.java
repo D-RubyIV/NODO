@@ -8,5 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class FooService {
     @Autowired
+    @Qualifier(value = "BarFormatter")
     private Formatter formatter;
+
+    public void processTest(){
+        System.out.println(formatter.format());
+    }
 }

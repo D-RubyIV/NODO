@@ -13,7 +13,9 @@ public class ParamController {
     @GetMapping
 
     public ResponseEntity<?> test(
-            @RequestParam(value = "name", required = false) String name,
+            // Nếu không có thì gán null
+            @RequestParam(value = "name", required = false) String name ,
+            //
             @RequestParam(name = "age", defaultValue = "0") Integer age
     ){
 

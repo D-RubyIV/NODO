@@ -1,12 +1,11 @@
-package org.example.bean.model;
+package org.example.bean.model.mysql;
 
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.example.bean.enums.EStatus;
+import org.example.bean.model.postgres.Role;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,13 +15,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-@JsonIgnoreProperties(value = {"address"}, allowSetters = false, allowGetters = true, ignoreUnknown = false)
+@JsonIgnoreProperties(value = {"balance"}, allowSetters = false, allowGetters = true, ignoreUnknown = false)
+@Table(
+        name = "persons",
+        uniqueConstraints = @UniqueConstraint(name = "abc", columnNames = {"name", "address"}),
+        indexes = {
+                @Index(name = "index_1", columnList = "name"),
+                @Index(name = "index_2", columnList = "address"),
+                @Index(name = "index_3", columnList = "fakeName", unique = true),
+                @Index(name = "index_name_address", columnList = "name, address")
+        }
+)
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
+
+    @JsonProperty(value = "FakeName")
+    private String fakeName;
 
     @JsonProperty(value = "customAge")
     private int age;
@@ -62,4 +74,8 @@ public class Person {
     public int getAge() {
         return age;
     }
+
+    @ManyToOne
+    @JoinColumn
+    private Level level;
 }
