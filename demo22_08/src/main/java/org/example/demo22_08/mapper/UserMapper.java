@@ -13,6 +13,7 @@ public interface UserMapper {
     @Mapping(source = "username", target = "username")
     @Mapping(source = "password", target = "password")
     @Mapping(source = "roles", target = "roleDTOS")
+//    @Mapping(target = "custom", expression = "java(org.example.demo22_08.statics.StaticVariable.custom)")
     UserDTO entityToDTO(User user);
     List<UserDTO> entityToDTOs(List<User> user);
 

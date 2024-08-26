@@ -38,15 +38,15 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    @Transactional
-    public User saveUser(User user) {
+    @Transactional(rollbackFor = RuntimeException.class)
+    public User saveUser(User user) throws SQLException {
         Set<Role> set = saveRoles(user);
         user.setRoles(set);
         return userRepository.save(user);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Set<Role> saveRoles(User user) {
+    public Set<Role> saveRoles(User user) throws SQLException {
         return user.getRoles().stream().map(s -> {
             if (s.getId() != null) {
                 Optional<Role> optional = roleRepository.findById(s.getId());
@@ -57,9 +57,40 @@ public class UserService {
         }).collect(Collectors.toSet());
     }
 
-    @Transactional
-    public void deleteUser(Integer id) {
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void deleteUser(Integer id) throws RuntimeException {
         userRepository.deleteById(id);
+        throw new RuntimeException();
     }
+
+// NO ROLLBACK FOR
+
+//    @Transactional(noRollbackFor = {ArithmeticException.class})
+//    public void deleteUser(Integer id) throws RuntimeException{
+//        userRepository.deleteById(id);
+//        int rs = 1/0;
+//    }
+
+// ROLLBACK FOR
+
+//    @Transactional(rollbackFor = {ArithmeticException.class})
+//    public void deleteUser(Integer id) throws RuntimeException{
+//        userRepository.deleteById(id);
+//        int rs = 1/0;
+//    }
+
+//   KHÔNG ROLLBACK VỚI CHECKED EXCEPTION
+//    @Transactional()
+//    public void deleteUser(Integer id) throws RuntimeException, SQLException {
+//        userRepository.deleteById(id);
+//        throw new SQLException();
+//    }
+
+//   ROLLBACK VỚI CHECKED EXCEPTION
+//    @Transactional(rollbackFor = {SQLException.class})
+//    public void deleteUser(Integer id) throws RuntimeException, SQLException {
+//        userRepository.deleteById(id);
+//        throw new SQLException();
+//    }
 }
 

@@ -14,4 +14,5 @@ public class UserDTO {
     private String username;
     private String password;
     private Set<RoleDTO> roleDTOS;
+//    private String custom;
 }

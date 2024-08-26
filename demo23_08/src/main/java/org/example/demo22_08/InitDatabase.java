@@ -32,9 +32,20 @@ public class InitDatabase {
             courseRepository.save(course);
 
         }
+        if (courseRepository.findById(2).isEmpty()){
+            Course course = new Course();
+            course.setName("Course 2");
+            courseRepository.save(course);
+
+        }
         if (studentRepository.findById(1).isEmpty()){
             Student student = new Student();
             student.setName("Student 1");
+            studentRepository.save(student);
+        }
+        if (studentRepository.findById(2).isEmpty()){
+            Student student = new Student();
+            student.setName("Student 2");
             studentRepository.save(student);
         }
         if (courseRatingRepository.findById(new CourseRatingKey(1, 1)).isEmpty()){
