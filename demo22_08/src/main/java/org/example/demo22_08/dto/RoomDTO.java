@@ -12,6 +12,6 @@ import java.util.Set;
 public class RoomDTO {
     private Integer id;
     private String name;
-//    private Set<StudentDTO> studentDTOS;
+    private Set<StudentDTO> studentDTOS;
 
 }

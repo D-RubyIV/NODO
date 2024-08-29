@@ -23,7 +23,7 @@ public class User {
     private String password;
 
     @ToString.Exclude
-    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Role.class)
+    @ManyToMany(cascade = CascadeType.ALL, targetEntity = Role.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role", // Cái này là ta đặt tên bảng cho mối quan hệ là gì
             joinColumns = @JoinColumn(name = "user_id"), // Column mà bảng hiện tại sẽ liên kết với bảng trung gian

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = StudentMapper.class)
 public interface RoomMapper {
-//    @Mapping(target = "studentDTOS", source = "students")
+    @Mapping(target = "studentDTOS", source = "students")
     RoomDTO entityToDTO(Room room);
 
     List<RoomDTO> entityToDTOs(List<Room> rooms);

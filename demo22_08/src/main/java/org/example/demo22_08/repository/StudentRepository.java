@@ -12,6 +12,6 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
 //    @Query(value = "select s from student s join fetch s.room")
-    @EntityGraph(attributePaths = {"room"})
+//    @EntityGraph(attributePaths = {"room"})
     List<Student> findAll();
 }
