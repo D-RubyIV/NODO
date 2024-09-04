@@ -24,6 +24,7 @@ public class FileUploadUtil {
         }
         try {
             String nameFile = UUID.randomUUID().toString() + ".png" ;
+//            String nameFile = code + ".png" ;
             Files.copy(multipartFile.getInputStream(), this.root.resolve(nameFile));
             log.info("Lưu {} ảnh thành công", fileName);
             return nameFile;

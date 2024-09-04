@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StudentDTO {
+public class StudentDetailDTO {
     private Integer id;
 
     @Length(message = "Length-4-8", min = 4, max = 8, groups = {GroupCreate.class})
@@ -50,7 +50,7 @@ public class StudentDTO {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate updatedDate;
 
-//    private List<CourseDTO> courseDTOS;
+    private List<CourseDTO> courseDTOS;
 
 
     // OTHER
@@ -63,5 +63,4 @@ public class StudentDTO {
     @JsonIgnore
     private List<Integer> courseIds;
 
-    private String courses;
 }

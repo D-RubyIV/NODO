@@ -3,6 +3,7 @@ package org.example.intern.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -26,5 +27,4 @@ public class CourseStudent {
     Course course;
 
     int joined;
-
 }

@@ -61,7 +61,7 @@ public class StudentController {
 
     @GetMapping(value = "{id}")
     public ResponseEntity<?> detail(@PathVariable Integer id) throws BadRequestException {
-        return ResponseEntity.ok(studentMapper.entityToDTO(studentService.detail(id)));
+        return ResponseEntity.ok(studentMapper.entityToDTODetail(studentService.detail(id)));
     }
 
 

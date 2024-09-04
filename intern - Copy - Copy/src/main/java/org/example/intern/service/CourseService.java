@@ -33,7 +33,6 @@ public class CourseService {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional(readOnly = true)
     public Page<CourseDTO> findAll(
             String title,
             Integer status,
@@ -77,7 +76,6 @@ public class CourseService {
         return new PageImpl<>(courseMapper.entityToDTOs(allCourses), pageable, allCourses.size());
     }
 
-    @Transactional(readOnly = true)
     public Course detail(Integer id) throws BadRequestException {
 //      FIND BY ID
         return courseRepository.findByIdWithFetchJoin(id).orElseThrow(() -> new BadRequestException("Course not found"));

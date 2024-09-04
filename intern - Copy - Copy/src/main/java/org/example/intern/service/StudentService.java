@@ -41,7 +41,6 @@ public class StudentService {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional(readOnly = true)
     public Page<StudentDTO> findAll(
             String name,
             String code,
@@ -92,7 +91,6 @@ public class StudentService {
         return new PageImpl<>(studentMapper.entityToDTOs(allStudents), pageable, allStudents.size());
     }
 
-    @Transactional(readOnly = true)
     public Student detail(Integer id) throws BadRequestException {
 //      FIND BY ID
         return studentRepository.findByIdWithFetchJoin(id).orElseThrow(() -> new BadRequestException("Student not found"));
@@ -136,8 +134,21 @@ public class StudentService {
 //          FIND COURSES BY ID
             List<Course> coursesByIds = courseRepository.findAllById(studentDTO.getCourseIds());
             List<CourseStudent> coursesByOrigin = entityFound.getInCourses();
+            List<CourseStudentKey> courseStudentKeyNeedUpdate = coursesByIds.stream().map(s -> {
+                return new CourseStudentKey(entityFound.getId(), s.getId());
+            }).toList();
 //          SET JOINED TO 0
-            entityFound.setInCourses(coursesByOrigin.stream().peek(s -> s.setJoined(0)).toList());
+            entityFound.setInCourses(coursesByOrigin.stream().peek(s -> {
+                System.out.println(courseStudentKeyNeedUpdate.contains(s.getId()));
+                if (!courseStudentKeyNeedUpdate.contains(s.getId())) {
+                    s.setJoined(0);
+                    System.out.println("--------------");
+                }
+                else {
+                    System.out.println("++++++++++++++");
+                }
+            }).toList());
+
 //          CREATE COURSE STUDENTS
             List<CourseStudent> inCourses = new ArrayList<>();
             coursesByIds.forEach(s -> {
