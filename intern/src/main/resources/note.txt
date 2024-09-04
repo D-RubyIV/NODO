@@ -1,0 +1,54 @@
+createQuery(Class<T> resultClass):
+
+Tạo một đối tượng CriteriaQuery dùng để xây dựng một truy vấn truy xuất các đối tượng của loại resultClass.
+createQuery():
+
+Tạo một đối tượng CriteriaQuery mà không chỉ định loại kết quả, thường được sử dụng với các truy vấn không trả về đối tượng, chẳng hạn như truy vấn tổng hợp.
+createTupleQuery():
+
+Tạo một đối tượng CriteriaQuery để thực hiện các truy vấn trả về các tuple (tập hợp các giá trị) thay vì các đối tượng.
+createCriteriaQuery(Class<T> resultClass):
+
+Tạo một đối tượng CriteriaQuery tương tự như createQuery(Class<T> resultClass), dùng để xây dựng một truy vấn trả về các đối tượng của loại resultClass.
+select(Expression<T> expr):
+
+Xác định phần "SELECT" của truy vấn, sử dụng biểu thức để chỉ định các trường hoặc thuộc tính sẽ được truy xuất.
+from(Class<T> entityClass):
+
+Xác định phần "FROM" của truy vấn, dùng để chỉ định lớp thực thể mà truy vấn sẽ được thực hiện.
+where(Expression<Boolean>... restrictions):
+
+Xác định điều kiện lọc cho truy vấn. Có thể truyền vào một hoặc nhiều biểu thức điều kiện.
+orderBy(Order... orders):
+
+Xác định cách sắp xếp các kết quả truy vấn. Có thể truyền vào một hoặc nhiều đối tượng Order.
+having(Expression<Boolean> restriction):
+
+Xác định điều kiện lọc cho các nhóm trong các truy vấn tổng hợp (ví dụ, với GROUP BY).
+groupBy(Expression<?>... grouping):
+
+Xác định các trường dùng để nhóm các kết quả trong truy vấn tổng hợp.
+distinct(boolean distinct):
+
+Chỉ định liệu truy vấn có yêu cầu kết quả không trùng lặp hay không.
+count():
+
+Tạo một biểu thức để đếm số lượng các bản ghi phù hợp với điều kiện truy vấn.
+equal(Expression<?> x, Object value):
+
+Tạo một biểu thức điều kiện so sánh bằng.
+greaterThan(Expression<Number> x, Number value):
+
+Tạo một biểu thức điều kiện so sánh lớn hơn.
+lessThan(Expression<Number> x, Number value):
+
+Tạo một biểu thức điều kiện so sánh nhỏ hơn.
+like(Expression<String> x, String pattern):
+
+Tạo một biểu thức điều kiện so sánh với mẫu (pattern) chuỗi.
+in(Expression<?> x, Object... values):
+
+Tạo một biểu thức điều kiện kiểm tra giá trị có nằm trong một tập hợp giá trị hay không.
+between(Expression<? extends Comparable<?>> x, Comparable<?> lower, Comparable<?> upper):
+
+Tạo một biểu thức điều kiện kiểm tra giá trị nằm trong một khoảng.

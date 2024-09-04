@@ -2,10 +2,7 @@ package org.example.intern.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,6 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Student {
     @Id
     @Column(name = "id")
@@ -37,17 +35,17 @@ public class Student {
     private String image;
 
     @Column(name = "status")
-    private boolean status;
+    private Integer status;
 
-    @Column(name = "create_at")
+    @Column(name = "create_date")
     @CreationTimestamp
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime createAt;
+    private LocalDateTime createdDate;
 
-    @Column(name = "update_at")
+    @Column(name = "update_date")
     @UpdateTimestamp
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedDate;
 
     @ManyToMany
     @JoinTable(
